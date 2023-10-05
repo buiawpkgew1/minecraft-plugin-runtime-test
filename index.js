@@ -19,13 +19,13 @@ async function main(){
         const serverJarFileName = `${serverName}-${serverVersion}-${serverBuild}.jar`
         const serverJarUrl = `https://api.papermc.io/v2/projects/paper/versions/${serverVersion}/builds/${serverBuild}/downloads/${serverJarFileName}`
 
-        const slimefunJarUrl = 'https://thebusybiscuit.github.io/builds/TheBusyBiscuit/Slimefun4/master/Slimefun4-1081.jar'
+        const slimefunJarUrl = 'https://builds.guizhanss.com/r2/StarWishsama/Slimefun4/master/Slimefun-38a36b8-Beta.jar'
 
         await fsPromise.writeFile('server/eula.txt', "eula=true").catch((err) => console.log("error writing contents to eula.txt: " + err))
 
         await downloadJar(serverJarUrl, 'server/', serverJarFileName)
 
-        await downloadJar(slimefunJarUrl, 'server/plugins/' , 'Slimefun4-1081.jar')
+        await downloadJar(slimefunJarUrl, 'server/plugins/' , 'Slimefun-38a36b8-Beta.jar')
 
         runServer(serverJarFileName)
     } catch (error) {
