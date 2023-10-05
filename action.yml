@@ -20,7 +20,7 @@ runs:
     - name: Checking out Action Repository
       uses: actions/checkout@v3.5.3
       with:
-        repository: buiawpkgew1/minecraft-plugin-runtime-test
+        repository: buiawpkgew1/minecraft-plugin-runtime-test-Guizhan
         ref: main
         
     - name: Download Plugin Build Artifact
