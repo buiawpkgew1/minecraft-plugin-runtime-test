@@ -1,4 +1,4 @@
-name: 'Minecraft Plugin Runtime Test'
+name: 'Minecraft Plugin Runtime Test Guizhan'
 description: 'A github action for testing minecraft plugins on combination of paper server versions'
 branding:
   icon: 'terminal'
