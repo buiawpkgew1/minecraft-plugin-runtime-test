@@ -72,7 +72,7 @@ jobs:
             javaVersion: '20'  
     
     steps:        
-      - uses: FN-FAL113/minecraft-plugin-runtime-test@v1.1.2 # 指定 Action 版本，尽可能使用最新版本
+      - uses: buiawpkgew1/minecraft-plugin-runtime-test@v1.1.4 # 指定 Action 版本，尽可能使用最新版本
         with:
           server-version: ${{ matrix.mcVersion }}
           java-version: ${{ matrix.javaVersion }}
