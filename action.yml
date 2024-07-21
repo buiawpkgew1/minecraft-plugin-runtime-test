@@ -1,35 +1,35 @@
-name: 'Minecraft Plugin Runtime Test Guizhan'
-description: 'A github action for testing minecraft plugins on combination of paper server versions'
+name: 'Minecraft 插件运行时测试 Guizhan'
+description: '一个用于在多种 Paper 服务器版本上测试 Minecraft 插件的 GitHub Action'
 branding:
   icon: 'terminal'
   color: 'green'
 inputs:
   server-version:
     required: true
-    default: '1.20.1'
+    default: '1.20.6'
   artifact-name:
     required: true
     default: ''
   java-version:
     required: true
-    default: '17'
+    default: '21'
 
 runs:
   using: 'composite'
   steps:
-    - name: Checking out Action Repository
+    - name: 检出 Action 仓库
       uses: actions/checkout@v3.5.3
       with:
         repository: buiawpkgew1/minecraft-plugin-runtime-test-Guizhan
         ref: main
         
-    - name: Download Plugin Build Artifact
+    - name: 下载插件构建工件
       uses: actions/download-artifact@v3
       with:
         name: ${{ inputs.artifact-name }}
         path: server/plugins/
 
-    - name: Setting up Java ${{ inputs.java-version }}
+    - name: 设置 Java ${{ inputs.java-version }}
       uses: actions/setup-java@v3.11.0
       with:
         distribution: 'adopt'
@@ -37,12 +37,12 @@ runs:
         java-package: jdk
         architecture: x64
 
-    - name: Use Node.js 16
+    - name: 使用 Node.js 16
       uses: actions/setup-node@v3
       with:
           node-version: '16.x'
 
-    - name: Running Test on Paper-${{ inputs.server-version }}
+    - name: 在 Paper-${{ inputs.server-version }} 上运行测试
       shell: bash
       env: 
         SERVER_VERSION: ${{ inputs.server-version }} 

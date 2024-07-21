@@ -1,25 +1,26 @@
-# Minecraft Plugin Runtime Test
-Github action for testing minecraft plugins initialization during server load on different versions of paper server.
+# Minecraft 插件运行时测试
+用于在 Paper 服务器的不同版本上测试 Minecraft 插件初始化的 Github Action。
+
 ![image](https://github.com/FN-FAL113/minecraft-plugin-runtime-test/assets/88238718/5086ee38-b1a3-4860-961a-1929124db85c)
 
+### 工作原理
+#### 先决条件步骤（构建插件）
+1. 检出仓库（在 Action 调用者的上下文中）
+2. 从之前的 workflow 构建作业中下载插件构建工件
+3. 设置 Java 17
+4. 设置 Node 16
+5. 执行 index.js 文件
 
-### How it works
-#### Prerequisite Steps (Building the plugin)
-1. Checkout repository (in the context of the action caller)
-2. Download plugin build artifact from previous workflow build job
-3. Set up Java 17
-4. Setup Node 16
-5. Execute index.js file
-#### index.js (When this action is called)
-1. Create and initialize ```eula.txt```
-2. Fetch latest paper server build
-3. Download paper server jar (server version from matrix variable as input data to this action) 
-4. Execute mc server
+#### index.js（当此 Action 被调用时）
+1. 创建并初始化 ```eula.txt```
+2. 获取最新的 Paper 服务器构建
+3. 下载 Paper 服务器 jar（服务器版本从矩阵变量作为输入数据传递给此 Action）
+4. 执行 mc 服务器
 
-### Usage
-- Create an action file inside ```./github/workflows``` in the scope of your plugin repository and configure the steps if necessary:
+### 使用方法
+- 在你的插件仓库的 ```./github/workflows``` 目录下创建一个 Action 文件，并根据需要配置步骤：
 ```yml
-name: Build with Maven and Do Runtime Test
+name: 使用 Maven 构建并进行运行时测试
 
 on:
   workflow_dispatch:
@@ -35,25 +36,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
+    - name: 检出仓库
       uses: actions/checkout@v2.3.3
       
-    - name: Set up JDK 16
+    - name: 设置 JDK 16
       uses: actions/setup-java@v1.4.3
       with:
         java-version: 16
         
-    - name: Maven Build
+    - name: Maven 构建
       run: mvn clean package --file pom.xml
       
-    - name: Upload the artifact
+    - name: 上传工件
       uses: actions/upload-artifact@v3
       with:
         name: artifact-${{ github.event.number }}
-        path: 'target/FNAmplifications*.jar' # Change this according to the location and filename of your packaged jar, you may use wildcards
-  
+        path: 'target/FNAmplifications*.jar' # 根据你的打包 jar 的位置和文件名更改此路径，可以使用通配符
+
   runtime-test:
-    name: Plugin Runtime Test 
+    name: 插件运行时测试 
     needs: [build]
     runs-on: ubuntu-latest
     strategy:
@@ -71,14 +72,16 @@ jobs:
             javaVersion: '20'  
     
     steps:        
-      - uses: FN-FAL113/minecraft-plugin-runtime-test@v1.1.2 # specify action version, use latest as possible
+      - uses: FN-FAL113/minecraft-plugin-runtime-test@v1.1.2 # 指定 Action 版本，尽可能使用最新版本
         with:
           server-version: ${{ matrix.mcVersion }}
           java-version: ${{ matrix.javaVersion }}
           artifact-name: artifact-${{ github.event.number }}
+
 ```
 
-### Plugins Included by Default During Runtime
+### 默认包含的插件
 - Slimefun
 
-Suggestions are open for plugins that depends on other plugins. This will be based off from a resource file soon in order to accomomdate more plugins or so this repo can be forked to support your plugins.
+对于依赖其他插件的插件，欢迎提出建议。这将在不久的将来基于资源文件实现，以便支持更多插件或允许此仓库被分叉以支持你的插件。
+
