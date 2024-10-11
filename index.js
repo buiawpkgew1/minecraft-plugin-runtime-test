@@ -5,7 +5,7 @@ const fsPromise = require('fs').promises
 const fs = require('fs')
 const childproc = require('child_process')
 
-async function main(){
+async function main() {
     try {
         if(!process.env.SERVER_VERSION) {
             console.error(`缺少 "SERVER_VERSION" 环境变量值！退出进程，代码为 1.`)
@@ -20,14 +20,14 @@ async function main(){
         const serverJarUrl = `https://api.papermc.io/v2/projects/paper/versions/${serverVersion}/builds/${serverBuild}/downloads/${serverJarFileName}`
 
         const slimefunJarUrl = 'https://builds.guizhanss.com/r2/SlimefunGuguProject/Slimefun4/master/Slimefun-0021742-Beta.jar'
-        const GuizhanLibPluginUrl = 'https://builds.guizhanss.com/r2/ybw0014/GuizhanLibPlugin/master/GuizhanLibPlugin-Build%2044%20(git%201f5d835).jar'
+        const GuizhanLibPluginUrl = 'https://builds.guizhanss.com/r2/ybw0014/GuizhanLibPlugin/master/GuizhanLibPlugin-Build%2055%20(git%207c33079).jar'
         await fsPromise.writeFile('server/eula.txt', "eula=true").catch((err) => console.log("写入 eula.txt 内容时出错: " + err))
 
         await downloadJar(serverJarUrl, 'server/', serverJarFileName)
 
-        await downloadJar(slimefunJarUrl, 'server/plugins/' , 'Slimefun-d36ce9d-Beta.jar')
+        await downloadJar(slimefunJarUrl, 'server/plugins/' , 'Slimefun-0021742-Beta.jar')
 
-        await downloadJar(GuizhanLibPluginUrl, 'server/plugins/' , 'GuizhanLibPlugin-Build 44 (git 1f5d835).jar')
+        await downloadJar(GuizhanLibPluginUrl, 'server/plugins/' , 'GuizhanLibPlugin-Build 55 (git 7c33079).jar')
 
         runServer(serverJarFileName)
     } catch (error) {
@@ -36,7 +36,7 @@ async function main(){
     }
 }
 
-function getLatestServerBuild(serverVersion){
+function getLatestServerBuild(serverVersion) {
     return new Promise((resolve, reject) => {
         const url = `https://api.papermc.io/v2/projects/paper/versions/${serverVersion}/builds` 
 
@@ -60,7 +60,7 @@ function getLatestServerBuild(serverVersion){
     })
 }
 
-function downloadJar(url, dir, jarFile){
+function downloadJar(url, dir, jarFile) {
     return new Promise((resolve, reject) => {
         let receivedBytes = 0
 
@@ -90,7 +90,7 @@ function downloadJar(url, dir, jarFile){
     })
 }
 
-function runServer(jarFile){
+function runServer(jarFile) {
     console.log("Jar 文件执行中！")
 
     const child = childproc.spawn("java", ['-jar', `${jarFile}`, '--nogui'], { cwd:"server/" })
