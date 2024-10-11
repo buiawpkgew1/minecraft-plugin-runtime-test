@@ -19,7 +19,7 @@ async function main(){
         const serverJarFileName = `${serverName}-${serverVersion}-${serverBuild}.jar`
         const serverJarUrl = `https://api.papermc.io/v2/projects/paper/versions/${serverVersion}/builds/${serverBuild}/downloads/${serverJarFileName}`
 
-        const slimefunJarUrl = 'https://builds.guizhanss.com/r2/StarWishsama/Slimefun4/master/Slimefun-d36ce9d-Beta.jar'
+        const slimefunJarUrl = 'https://builds.guizhanss.com/r2/SlimefunGuguProject/Slimefun4/master/Slimefun-0021742-Beta.jar'
         const GuizhanLibPluginUrl = 'https://builds.guizhanss.com/r2/ybw0014/GuizhanLibPlugin/master/GuizhanLibPlugin-Build%2044%20(git%201f5d835).jar'
         await fsPromise.writeFile('server/eula.txt', "eula=true").catch((err) => console.log("写入 eula.txt 内容时出错: " + err))
 
